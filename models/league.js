@@ -113,7 +113,7 @@ module.exports = (sequelize, DataTypes) => {
         defaultGameMode: {
             allowNull: false,
             type: DataTypes.STRING,
-            defaultValue: CONSTANTS.DOTA_GAMEMODE_CM,
+            defaultValue: CONSTANTS.DOTA_GAMEMODE_CD,
         },
         /**
          * @memberof module:db.League
