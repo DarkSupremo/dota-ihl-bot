@@ -67,8 +67,11 @@ module.exports = class QueueJoinCommand extends IHLCommand {
                 return QueueJoinCommand.processResult(lobbyState, inhouseUser, result, msg);
             }
             logger.silly('QueueJoinCommand joining all queues');
-            await this.ihlManager.joinAllLobbyQueues(inhouseState, inhouseUser, msg.member);
-            return msg.say(`${msg.member.displayName} joined all queues.`);
+            const joinedQueuesCount = await this.ihlManager.joinAllLobbyQueues(inhouseState, inhouseUser, msg.member);
+            if (!joinedQueuesCount) {
+                return msg.say(`${msg.member.displayName} no queue available.`);
+            }
+            return msg.say(`${msg.member.displayName} joined all ${joinedQueuesCount} queues.`);
         }
         return msg.say('Badge rank not set. Ping an admin to have them set it for you.');
     }

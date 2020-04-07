@@ -15,12 +15,12 @@ module.exports = class QueueStatusCommand extends IHLCommand {
     constructor(client) {
         super(client, {
             name: 'queue-status',
-            aliases: ['qstatus', 'status'],
+            aliases: ['qstatus', 'status', 'pool'],
             group: 'queue',
             memberName: 'queue-status',
             guildOnly: true,
             description: 'Display players in queue.',
-            examples: ['queue-status', 'queuestatus', 'qstatus', 'status'],
+            examples: ['queue-status', 'queuestatus', 'qstatus', 'status', 'pool'],
             args: [
                 {
                     key: 'channel',
@@ -67,6 +67,9 @@ module.exports = class QueueStatusCommand extends IHLCommand {
             return msg.say(message);
         }
         const lobbyStates = await Ihl.getAllLobbyQueues(inhouseState);
+        if (!lobbyStates.length) {
+            return msg.say('No queue available.');
+        }
         return Fp.mapPromise(_lobbyState => QueueStatusCommand.getQueueStatusMessage(guild, _lobbyState).then(message => msg.say(message)))(lobbyStates);
     }
 };

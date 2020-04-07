@@ -13,6 +13,7 @@ module.exports = class ChallengeCommand extends IHLCommand {
     constructor(client) {
         super(client, {
             name: 'challenge',
+            aliases: ['clg'],
             group: 'challenge',
             memberName: 'challenge',
             guildOnly: true,
